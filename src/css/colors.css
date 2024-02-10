@@ -1,0 +1,28 @@
+:root {
+  --primaryText: #00000;
+  --secondaryText: #808080;
+  --tertiaryText: #ffffff;
+
+  --tableBorder: #e1e1e1;
+
+  --normalType: #38e9da;
+  --fightingType: #e72e6c;
+  --flyingType: #86a9e0;
+  --poisonType: #b966cb;
+  --groundType: #ee7241;
+  --rockType: #c9b78a;
+  --bugType: #7cc415;
+  --ghostType: #4a69b0;
+  --steelType: #3f90a3;
+  --fireType: #ff974f;
+  --waterType: #2591d9;
+  --grassType: #09c053;
+  --electricType: #fdd124;
+  --psychicType: #ff6276;
+  --iceType: #30d1c0;
+  --dragonType: #006ec6;
+  --darkType: #5c5366;
+  --fairyType: #ff87e8;
+  --unknownType: #4ba28f;
+  --shadowType: #684d85;
+}
