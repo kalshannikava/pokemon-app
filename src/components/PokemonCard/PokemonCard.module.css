@@ -1,0 +1,154 @@
+@import '../../css/colors.css';
+
+.PokemonCard {
+  width: 550px;
+}
+
+.PokemonInfoContainer {
+  display: flex;
+}
+
+.PokemonAvatar {
+  height: 300px;
+}
+
+.PokemonName, .StatsHeader {
+  font-size: 24px;
+  margin: 0;
+}
+
+.PokemonName::first-letter {
+  text-transform: uppercase;
+}
+
+.Table {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  position: relative;
+}
+
+.Table dt {
+  color: var(--secondaryText);
+  justify-content: flex-end;
+}
+
+.Table dt, .Table dd {
+  border-top: 1px solid var(--tableBorder);
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+}
+
+.Table dt:last-of-type, .Table dd:last-of-type {
+  border-bottom: 1px solid var(--tableBorder);
+}
+
+.Table, .Table dt, .Table dd {
+  margin: 0;
+  padding: 5px 0px;
+  box-sizing: border-box;
+}
+
+.Table dt {
+  padding-right: 10px;
+}
+
+.PokemonType span {
+  text-transform: uppercase;
+  display: inline-block;
+  padding: 5px;
+  border-radius: 5px;
+  margin-right: 5px;
+  color: var(--tertiaryText);
+  font-size: 14px;
+}
+
+.PokemonType .normal {
+  background-color: var(--normalType);
+}
+
+.PokemonType .fighting {
+  background-color: var(--fightingType);
+}
+
+.PokemonType .flying {
+  background-color: var(--flyingType);
+}
+
+.PokemonType .poison {
+  background-color: var(--poisonType);
+}
+
+.PokemonType .ground {
+  background-color: var(--groundType);
+}
+
+.PokemonType .rock {
+  background-color: var(--rockType);
+}
+
+.PokemonType .bug {
+  background-color: var(--bugType);
+}
+
+.PokemonType .ghost {
+  background-color: var(--ghostType);
+}
+
+.PokemonType .steel {
+  background-color: var(--steelType);
+}
+
+.PokemonType .fire {
+  background-color: var(--fireType);
+}
+
+.PokemonType .water {
+  background-color: var(--waterType);
+}
+
+.PokemonType .grass {
+  background-color: var(--grassType);
+}
+
+.PokemonType .electric {
+  background-color: var(--electricType);
+}
+
+.PokemonType .psychic {
+  background-color: var(--psychicType);
+}
+
+.PokemonType .ice {
+  background-color: var(--iceType);
+}
+
+.PokemonType .dragon {
+  background-color: var(--dragonType);
+}
+
+.PokemonType .dark {
+  background-color: var(--darkType);
+}
+
+.PokemonType .fairy {
+  background-color: var(--ff87e8);
+}
+
+.PokemonType .unknown {
+  background-color: var(--unknownType);
+}
+
+.PokemonType .shadow {
+  background-color: var(--shadowType);
+}
+
+.PokemonSpecies {
+  text-transform: capitalize;
+}
+
+.PokemonAbilities {
+  text-transform: capitalize;
+  flex-direction: column;
+  align-items: start!important;
+}
