@@ -8,6 +8,11 @@ import { FETCH_POKEMONS_LIMIT_INIT } from '../constants';
 import type { Pokemon, PokemonPartial } from '../types/pokemon';
 import type { PokemonDetailsResponse } from '../types/shared';
 
+type CachedObject = {
+  pokemons: Pokemon[],
+  count: number,
+}
+
 const useFetchPokemons = (): 
 { pokemons: Pokemon[], count: number, isLoading: boolean, fetchPokemons: Function } => {
   const [pokemons, setPokemons] = useState<Pokemon[]>([]);
@@ -72,10 +77,11 @@ const useFetchPokemons = ():
   }
 
   const fetchPokemons = async (url?: string) => {
-    const cachedPokemons: Pokemon[] | null = getCached('pokemons');
+    const cachedPokemons: CachedObject | null = getCached('pokemons');
     if (cachedPokemons) {
       setIsLoading(false);
-      setPokemons(cachedPokemons);
+      setPokemons(cachedPokemons.pokemons);
+      setCount(cachedPokemons.count);
       return;
     }
 
@@ -85,7 +91,11 @@ const useFetchPokemons = ():
     setIsLoading(false);
     const newPokemons = [...pokemons, ...normalizeData(pokemonsList, pokemonsDetails)];
     setPokemons(newPokemons);
-    setCached('pokemons', newPokemons, CACHE_EXPIRES);
+    const newPokemonsCached: CachedObject = {
+      pokemons: newPokemons,
+      count: newPokemons.length,
+    }
+    setCached('pokemons', newPokemonsCached, CACHE_EXPIRES);
   };
   useEffect(() => {
     fetchPokemons();
