@@ -34,7 +34,7 @@ const PokemonCard = ({ pokemon }: Props) => {
             <dd>{formatWeight(weight)}</dd>
             <dt>Abilities</dt>
             <dd className={styles.PokemonAbilities}>
-              {abilities.map(ability => <span>{ability.ability.name}</span>)}
+              {abilities.map(ability => <span key={ability.ability.name}>{ability.ability.name}</span>)}
             </dd>
         </dl>
         </div>
@@ -43,12 +43,12 @@ const PokemonCard = ({ pokemon }: Props) => {
         <h3 className={styles.StatsHeader}>Base stats</h3>
         <dl className={classnames(styles.PokemonStats, styles.Table)}>
           {stats.map(stat => {
-            return <>
+            return <React.Fragment key={stat.stat.name}>
             <dt>{formatStatName(stat.stat.name)}</dt>
             <dd>
               <span>{stat.base_stat}</span>
             </dd>
-            </>
+            </React.Fragment>
           })}
         </dl>
       </div>
