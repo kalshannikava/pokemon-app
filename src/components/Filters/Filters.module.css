@@ -21,6 +21,10 @@
   font-size: 14px;
 }
 
+.Selected {
+  border: 2px solid var(--selectedBorder);
+}
+
 .ResetButton:hover {
   cursor: pointer;
 }
