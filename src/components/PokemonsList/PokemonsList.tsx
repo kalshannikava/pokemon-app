@@ -5,23 +5,24 @@ import styles from './PokemonsList.module.css';
 import PokemonCard from '../PokemonCard/PokemonCard';
 import Loader from '../Loader/Loader';
 import type { Pokemon } from '../../types/pokemon';
-import type { GetPoklemonsAdditionalData } from '../../types/shared';
 
 type Props = {
   pokemons: Pokemon[],
-  additionalData: GetPoklemonsAdditionalData,
+  count: number,
   fetchPokemons: Function,
+  isLoading: boolean,
 }
-const PokemonsList = ({ pokemons, additionalData, fetchPokemons }: Props) => {
+const PokemonsList = ({ pokemons = [], count, fetchPokemons, isLoading = false }: Props) => {
   return (
+    isLoading ? <Loader/> :
     <InfiniteScroll
       dataLength={pokemons.length}
-      next={() => fetchPokemons(additionalData.next)}
-      hasMore={Boolean(pokemons.length && pokemons.length < additionalData.count)}
+      next={() => fetchPokemons()}
+      hasMore={Boolean(pokemons.length && pokemons.length < count)}
       loader={<Loader />}
       endMessage={
         <p style={{ textAlign: 'center' }}>
-          <b>{pokemons.length ? 'Yay! You have seen it all' : 'Oops! Something went wrong :('}</b>
+          <b>Yay! You have seen it all'</b>
         </p>
       }
       className={styles.PokemonsList}

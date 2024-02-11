@@ -1,14 +1,24 @@
 import React from 'react';
 import './css/index.css';
-import useFetchPokemons from './hooks/useFetchPokemons';
 import PokemonList from './components/PokemonsList/PokemonsList';
+import usePagination from './hooks/usePagination';
 
 function App() {
-  const { pokemons, additionalData, fetchPokemons } = useFetchPokemons();
+  const {
+    getNextPage,
+    pokemonsPaginated,
+    isLoading,
+    count,
+  } = usePagination();
 
   return (
     <div data-testid='app'>
-      <PokemonList pokemons={pokemons} additionalData={additionalData} fetchPokemons={fetchPokemons} />
+      <PokemonList
+        pokemons={pokemonsPaginated}
+        count={count}
+        fetchPokemons={getNextPage}
+        isLoading={isLoading}
+      />
     </div>
   );
 }
