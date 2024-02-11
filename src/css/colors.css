@@ -3,6 +3,9 @@
   --secondaryText: #808080;
   --tertiaryText: #ffffff;
 
+  --spinnerPrimary: #f3f3f3;
+  --spinnerSecondary: var(--secondaryText);
+
   --tableBorder: #e1e1e1;
 
   --normalType: #38e9da;

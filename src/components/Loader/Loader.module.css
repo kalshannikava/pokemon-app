@@ -1,0 +1,25 @@
+@import '../../css/colors.css';
+
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.LoaderContainer {
+  width: 100%;
+  overflow-y: hidden;
+}
+
+.Spinner {
+  margin: auto;
+  width: 50px;
+  height: 50px;
+  border: 5px solid var(--spinnerPrimary);
+  border-top: 5px solid var(--spinnerSecondary);
+  border-radius: 50%;
+  animation: spinner 1.5s linear infinite;
+}
