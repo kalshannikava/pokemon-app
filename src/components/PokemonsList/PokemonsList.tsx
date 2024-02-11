@@ -20,11 +20,6 @@ const PokemonsList = ({ pokemons = [], count, fetchPokemons, isLoading = false }
       next={() => fetchPokemons()}
       hasMore={Boolean(pokemons.length && pokemons.length < count)}
       loader={<Loader />}
-      endMessage={
-        <p style={{ textAlign: 'center' }}>
-          <b>Yay! You have seen it all'</b>
-        </p>
-      }
       className={styles.PokemonsList}
     >
       {pokemons.map((pokemon) => (

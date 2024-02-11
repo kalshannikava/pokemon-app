@@ -44,7 +44,7 @@ function App() {
 
   return (
     <div data-testid='app'>
-      <Filters types={typesFetched.data?.results.map(r => r.name) || []} setFilter={setFilter} />
+      {!isLoading && !typesFetched.isLoading && <Filters types={typesFetched.data?.results.map(r => r.name) || []} setFilter={setFilter} />}
       <PokemonList
         pokemons={pokemonsPaginated}
         count={pokemonsCount}

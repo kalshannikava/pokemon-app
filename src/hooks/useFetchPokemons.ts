@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
 
-import { FETCH_POKEMONS_DETAILS_LIMIT, GET_POKEMON } from '../constants';
+import useCache from './useCache';
+import { chunkArray, convertPokemonDetailsFromServerToPokemonDetailsForClient } from '../utils/helpers';
+import { CACHE_EXPIRES, FETCH_POKEMONS_DETAILS_LIMIT, GET_POKEMON } from '../constants';
 import { FETCH_POKEMONS_OFFSET_INIT } from '../constants';
 import { FETCH_POKEMONS_LIMIT_INIT } from '../constants';
 import type { Pokemon, PokemonPartial } from '../types/pokemon';
-import { chunkArray, convertPokemonDetailsFromServerToPokemonDetailsForClient } from '../utils/helpers';
-import { PokemonDetailsResponse } from '../types/shared';
-import useCache from './useCache';
+import type { PokemonDetailsResponse } from '../types/shared';
 
 const useFetchPokemons = (): 
 { pokemons: Pokemon[], count: number, isLoading: boolean, fetchPokemons: Function } => {
@@ -33,10 +33,8 @@ const useFetchPokemons = ():
     }
   };
 
-  const fetchBatchPokemonsDetails = async (batches: string[]) => {
-    const batchRes = await Promise.all(batches.map(url => fetch(url)));
-    return batchRes;
-  }
+  const fetchBatchPokemonsDetails = async (batches: string[]) =>
+    await Promise.all(batches.map(url => fetch(url)));
 
   const fetchPokemonsNamesDetails = async (pokemonsList: PokemonPartial[]): Promise<PokemonDetailsResponse[]> => {
     try {
@@ -75,7 +73,7 @@ const useFetchPokemons = ():
 
   const fetchPokemons = async (url?: string) => {
     const cachedPokemons: Pokemon[] | null = getCached('pokemons');
-    if(cachedPokemons) {
+    if (cachedPokemons) {
       setIsLoading(false);
       setPokemons(cachedPokemons);
       return;
@@ -87,7 +85,7 @@ const useFetchPokemons = ():
     setIsLoading(false);
     const newPokemons = [...pokemons, ...normalizeData(pokemonsList, pokemonsDetails)];
     setPokemons(newPokemons);
-    setCached('pokemons', newPokemons, 86400000);
+    setCached('pokemons', newPokemons, CACHE_EXPIRES);
   };
   useEffect(() => {
     fetchPokemons();

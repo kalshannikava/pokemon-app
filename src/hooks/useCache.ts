@@ -12,7 +12,7 @@ const useCache = () => {
     if (!item) return null;
 
     const parsedItem = JSON.parse(item);
-    if (parsedItem.expires >= Date.now()) {
+    if (parsedItem.expires <= Date.now()) {
       return null;
     }
 

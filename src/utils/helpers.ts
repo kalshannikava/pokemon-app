@@ -1,5 +1,5 @@
-import { Pokemon, PokemonDetails } from '../types/pokemon';
-import { PokemonDetailsResponse } from '../types/shared';
+import type { Pokemon, PokemonDetails } from '../types/pokemon';
+import type { PokemonDetailsResponse } from '../types/shared';
 
 /**
  * 
@@ -33,7 +33,7 @@ export const filterPokemonsByType = (pokemons: Pokemon[], type: string): Pokemon
 /**
  * 
  * @param pokemonFromServer Pokemon data recevied from server.
- * @returns Pokemon data for client.
+ * @returns Pokemon data without extra properties and formatted for client.
  */
 export const convertPokemonDetailsFromServerToPokemonDetailsForClient = (pokemonFromServer: PokemonDetailsResponse): PokemonDetails => {
   return {
