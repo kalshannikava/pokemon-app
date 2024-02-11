@@ -12,7 +12,6 @@ const usePagination = (pokemons: Pokemon[]) => {
   const [pokemonsPaginated, setPokemonsPaginated] = useState<Pokemon[]>([]);
 
   useEffect(() => {
-    console.log('new pokemons!!!', pokemons.length);
     const chunked = chunkArray(pokemons, 20);
     if (chunked.length) {
       setPokemonsChunked(chunked);
