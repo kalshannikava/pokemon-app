@@ -15,17 +15,20 @@ type Props = {
 const PokemonsList = ({ pokemons = [], count, fetchPokemons, isLoading = false }: Props) => {
   return (
     isLoading ? <Loader/> :
-    <InfiniteScroll
-      dataLength={pokemons.length}
-      next={() => fetchPokemons()}
-      hasMore={Boolean(pokemons.length && pokemons.length < count)}
-      loader={<Loader />}
-      className={styles.PokemonsList}
-    >
-      {pokemons.map((pokemon) => (
-        <PokemonCard pokemon={pokemon} key={pokemon.id} />
-      ))}
-    </InfiniteScroll>
+    <>
+      <h3>Showing {pokemons.length} of {count}</h3>
+      <InfiniteScroll
+        dataLength={pokemons.length}
+        next={() => fetchPokemons()}
+        hasMore={Boolean(pokemons.length && pokemons.length < count)}
+        loader={<Loader />}
+        className={styles.PokemonsList}
+      >
+        {pokemons.map((pokemon) => (
+          <PokemonCard pokemon={pokemon} key={pokemon.id} />
+        ))}
+      </InfiniteScroll>
+    </>
   );
 };
 

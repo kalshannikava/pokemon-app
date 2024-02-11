@@ -28,7 +28,7 @@ export const chunkArray = (array: Array<any>, itemsPerChunk: number = 20): Array
  * @returns Filtered Pokemons.
  */
 export const filterPokemonsByType = (pokemons: Pokemon[], type: string): Pokemon[] =>
-  pokemons.filter(pokemon => pokemon.types.find(t => t.name === type));
+  type ? pokemons.filter(pokemon => pokemon.types.find(t => t.name === type)) : pokemons;
 
 /**
  * 

@@ -1,7 +1,26 @@
+@import '../../css/colors.css';
+
 .FilterEntry {
   margin-bottom: 5px;
 }
 
 .FilterEntry:hover {
+  cursor: pointer;
+}
+
+.ResetButton {
+  background-color: var(--butonPrimary);
+  font-family: inherit;
+  border: none;
+  text-transform: uppercase;
+  display: inline-block;
+  padding: 5px;
+  border-radius: 5px;
+  margin-right: 5px;
+  color: var(--tertiaryText);
+  font-size: 14px;
+}
+
+.ResetButton:hover {
   cursor: pointer;
 }

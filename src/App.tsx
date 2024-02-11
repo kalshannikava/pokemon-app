@@ -12,23 +12,22 @@ import type { Pokemon } from './types/pokemon';
 import type { PokemonTypeResponse } from './types/shared';
 
 function App() {
+  const [pokemonsToRender, setPokemonsToRender] = useState<Pokemon[]>([]);
+  const typesFetched = useFetch<PokemonTypeResponse>(GET_TYPES);
+  const [filter, setFilter] = useState<string>('');
+  const [pokemonsCount, setPokemonsCount] = useState<number>(0);
+
   const {
     pokemons,
     isLoading,
     count,
   } = useFetchPokemons();
 
-  const [pokemonsToRender, setPokemonsToRender] = useState<Pokemon[]>([]);
-
   const {
     getNextPage,
     pokemonsPaginated,
     resetPagination,
   } = usePagination(pokemonsToRender);
-
-  const typesFetched = useFetch<PokemonTypeResponse>(GET_TYPES);
-  const [filter, setFilter] = useState<string>('');
-  const [pokemonsCount, setPokemonsCount] = useState<number>(0);
 
   useEffect(() => {
     setPokemonsToRender(pokemons);
@@ -42,9 +41,12 @@ function App() {
     setPokemonsCount(filteredPokemons.length);
   }, [filter]);
 
+  const resetFilters = () => setFilter('');
+
   return (
     <div data-testid='app'>
-      {!isLoading && !typesFetched.isLoading && <Filters types={typesFetched.data?.results.map(r => r.name) || []} setFilter={setFilter} />}
+      {!isLoading && !typesFetched.isLoading &&
+        <Filters types={typesFetched.data?.results.map(r => r.name) || []} setFilter={setFilter} resetFilters={resetFilters} />}
       <PokemonList
         pokemons={pokemonsPaginated}
         count={pokemonsCount}
