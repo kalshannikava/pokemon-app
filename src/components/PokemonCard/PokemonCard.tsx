@@ -2,6 +2,7 @@ import React from 'react';
 import classnames from 'classnames';
 
 import styles from './PokemonCard.module.css';
+import PokemonType from '../PokemonType/PokemonType';
 import type { Pokemon } from '../../types/pokemon';
 import { formatHeight, formatStatName, formatWeight } from '../../utils/formatters';
 
@@ -23,7 +24,7 @@ const PokemonCard = ({ pokemon }: Props) => {
             <dt>Type</dt>
             <dd className={styles.PokemonType}>
               {types.map((type) => (
-                <span key={`${type.type.name}_${id}`} className={styles[type.type.name]}>{type.type.name}</span>
+                <PokemonType key={`${type.type.name}_${id}`} name={type.type.name} />
               ))}
             </dd>
             <dt>Species</dt>

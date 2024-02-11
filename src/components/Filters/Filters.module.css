@@ -1,0 +1,7 @@
+.FilterEntry {
+  margin-bottom: 5px;
+}
+
+.FilterEntry:hover {
+  cursor: pointer;
+}
