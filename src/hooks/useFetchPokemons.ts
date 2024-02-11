@@ -17,23 +17,34 @@ const useFetchPokemons = ():
       offset: String(FETCH_POKEMONS_OFFSET_INIT),
     });
 
-    const response = await fetch(url || `${GET_POKEMON}?${queryParams}`);
-    const pokemonsList = await response.json();
-    setAdditionalData({ next: pokemonsList.next, count: pokemonsList.count });
-    return pokemonsList.results;
+    try {
+      const response = await fetch(url || `${GET_POKEMON}?${queryParams}`);
+      const pokemonsList = await response.json();
+      setAdditionalData({ next: pokemonsList.next, count: pokemonsList.count });
+      return pokemonsList.results;
+    } catch (error) {
+      console.error('Error fetching pokemons: ', error);
+      return [];
+    }
   };
 
   const fetchPokemonsNamesDetails = async (pokemonsList: PokemonPartial[]): Promise<PokemonDetails[]> => {
-    const requests = pokemonsList.map((pokemon) => fetch(pokemon.url));
-    const responses = await Promise.all(requests);
-    const responsesJson = await responses.map((res) => res.json());
-    const pokemonsDetails = await Promise.all(responsesJson);
+    try {
+      const requests = pokemonsList.map((pokemon) => fetch(pokemon.url));
+      const responses = await Promise.all(requests);
+      const responsesJson = await responses.map((res) => res.json());
+      const pokemonsDetails = await Promise.all(responsesJson);
 
-    return pokemonsDetails;
+      return pokemonsDetails;
+    } catch (error) {
+      console.log('Error fetching pokemon details: ', error);
+      return [];
+    }
   };
 
-  const normalizeData = (pokemonsList: PokemonPartial[], pokemonsDetails: PokemonDetails[]): Pokemon[] =>
-    pokemonsList.map((pokemon: PokemonPartial) => {
+  const normalizeData = (pokemonsList: PokemonPartial[], pokemonsDetails: PokemonDetails[]): Pokemon[] => {
+    if (!pokemonsList.length || !pokemonsDetails.length) return [];
+    return pokemonsList.map((pokemon: PokemonPartial) => {
       const details: PokemonDetails = pokemonsDetails.find(
         (detail) => detail.name === pokemon.name
       )!;
@@ -42,6 +53,7 @@ const useFetchPokemons = ():
         ...details,
       };
     });
+  }
 
   const fetchPokemons = async (url?: string) => {
     const pokemonsList: PokemonPartial[] = await fetchPokemonsNames(url);

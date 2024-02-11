@@ -15,12 +15,12 @@ const PokemonsList = ({ pokemons, additionalData, fetchPokemons }: Props) => {
   return (
     <InfiniteScroll
       dataLength={pokemons.length}
-      next={() => { console.log(additionalData.next); fetchPokemons(additionalData.next)}}
-      hasMore={pokemons.length < additionalData.count}
+      next={() => fetchPokemons(additionalData.next)}
+      hasMore={Boolean(pokemons.length && pokemons.length < additionalData.count)}
       loader={<h4>Loading...</h4>}
       endMessage={
         <p style={{ textAlign: 'center' }}>
-          <b>Yay! You have seen it all</b>
+          <b>{pokemons.length ? 'Yay! You have seen it all' : 'Oops! Something went wrong :('}</b>
         </p>
       }
       className={styles.PokemonsList}
