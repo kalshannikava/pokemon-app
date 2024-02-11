@@ -1,7 +1,8 @@
 @import '../../css/colors.css';
 
 .PokemonCard {
-  width: 550px;
+  width: 470px;
+  margin: 40px 10px;
 }
 
 .PokemonInfoContainer {
@@ -9,7 +10,7 @@
 }
 
 .PokemonAvatar {
-  height: 300px;
+  height: 250px;
 }
 
 .PokemonName, .StatsHeader {
@@ -132,7 +133,7 @@
 }
 
 .PokemonType .fairy {
-  background-color: var(--ff87e8);
+  background-color: var(--fairyType);
 }
 
 .PokemonType .unknown {
@@ -151,4 +152,69 @@
   text-transform: capitalize;
   flex-direction: column;
   align-items: start!important;
+}
+
+@media screen and (max-width: 480px) {
+  .PokemonInfoContainer {
+    align-items: center;
+  }
+
+  .PokemonAvatar {
+    height: 150px;
+  }
+
+  .PokemonName, .StatsHeader {
+    font-size: 16px;
+  }
+
+  .Table dt, .Table dd {
+    font-size: 14px;
+    min-height: 37px;
+  }
+}
+
+@media screen and (min-width: 481px) and (max-width: 768px) {
+  .PokemonCard {
+    width: 390px;
+  }
+
+  .PokemonInfoContainer {
+    align-items: center;
+  }
+
+  .PokemonAvatar {
+    height: 200px;
+  }
+
+  .PokemonName, .StatsHeader {
+    font-size: 16px;
+  }
+
+  .Table dt, .Table dd {
+    font-size: 14px;
+    min-height: 37px;
+  }
+}
+
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+  .PokemonCard {
+    width: 360px;
+  }
+
+  .PokemonInfoContainer {
+    align-items: center;
+  }
+
+  .PokemonAvatar {
+    height: 150px;
+  }
+
+  .PokemonName, .StatsHeader {
+    font-size: 16px;
+  }
+
+  .Table dt, .Table dd {
+    font-size: 14px;
+    min-height: 37px;
+  }
 }
