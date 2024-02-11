@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from 'react';
 
-import useFetchPokemons from './useFetchPokemons';
 import { chunkArray } from '../utils/helpers';
 import type { Pokemon } from '../types/pokemon';
 
 /** Since PokeAPI doesn't support filtering, we're fetching all pokemons at once
   * but there is no need to render all of them at first load so we're splitting array to chunks to simulate pagination
 */
-const usePagination = () => {
-  const { pokemons, count, isLoading } = useFetchPokemons();
+const usePagination = (pokemons: Pokemon[]) => {
   const [pageIndex, setPageIndex] = useState<number>(0);
   const [pokemonsChunked, setPokemonsChunked] = useState<Pokemon[][]>([]);
   const [pokemonsPaginated, setPokemonsPaginated] = useState<Pokemon[]>([]);
@@ -31,8 +29,6 @@ const usePagination = () => {
   return {
     getNextPage,
     pokemonsPaginated,
-    isLoading,
-    count,
   }
 }
 
