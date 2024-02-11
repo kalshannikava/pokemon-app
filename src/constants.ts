@@ -7,3 +7,5 @@ export const FETCH_POKEMONS_LIMIT_INIT = 10000;
 export const FETCH_POKEMONS_OFFSET_INIT = 0;
 export const FETCH_POKEMONS_DETAILS_LIMIT = 20;
 export const CACHE_EXPIRES = 86400000;
+
+export const PAGE_SIZE = 20;

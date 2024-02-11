@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import { chunkArray } from '../utils/helpers';
+import { PAGE_SIZE } from '../constants';
 import type { Pokemon } from '../types/pokemon';
 
 /** Since PokeAPI doesn't support filtering, we're fetching all pokemons at once
@@ -12,7 +13,7 @@ const usePagination = (pokemons: Pokemon[]) => {
   const [pokemonsPaginated, setPokemonsPaginated] = useState<Pokemon[]>([]);
 
   useEffect(() => {
-    const chunked = chunkArray(pokemons, 20);
+    const chunked = chunkArray(pokemons, PAGE_SIZE);
     if (chunked.length) {
       setPokemonsChunked(chunked);
       setPokemonsPaginated([...pokemonsPaginated, ...chunked[pageIndex]]);

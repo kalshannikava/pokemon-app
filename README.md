@@ -5,6 +5,10 @@ This app is designed using https://pokeapi.co/ and React library. The goals are:
 - to support filtering by Pokemon type
 - to reveal moves list and evolution imformation of each Pokemon
 
+## Important note
+
+Fisrt load of the app might (and most likely will) take several seconds.
+
 ## Live Demo
 
 https://kalshannikava.github.io/pokemon-app/
