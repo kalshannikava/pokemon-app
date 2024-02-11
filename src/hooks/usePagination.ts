@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { chunkArray } from '../utils/helpers';
 import type { Pokemon } from '../types/pokemon';
@@ -12,6 +12,7 @@ const usePagination = (pokemons: Pokemon[]) => {
   const [pokemonsPaginated, setPokemonsPaginated] = useState<Pokemon[]>([]);
 
   useEffect(() => {
+    console.log('new pokemons!!!', pokemons.length);
     const chunked = chunkArray(pokemons, 20);
     if (chunked.length) {
       setPokemonsChunked(chunked);
@@ -20,15 +21,22 @@ const usePagination = (pokemons: Pokemon[]) => {
   }, [pokemons]);
 
   const getNextPage = () => {
-    if (pageIndex < pokemonsChunked.length) {
+    if (pageIndex < pokemonsChunked.length - 1) {
       setPageIndex(pageIndex + 1);
       setPokemonsPaginated([...pokemonsPaginated, ...pokemonsChunked[pageIndex + 1]]);
     }
   }
 
+  const resetPagination = () => {
+    setPokemonsPaginated([]);
+    setPokemonsChunked([]);
+    setPageIndex(0);
+  }
+
   return {
     getNextPage,
     pokemonsPaginated,
+    resetPagination,
   }
 }
 
