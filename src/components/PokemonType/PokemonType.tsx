@@ -10,7 +10,7 @@ type Props = {
 }
 
 const PokemonType = ({ name, classNames, onClick }: Props) => {
-  return <span className={classnames(styles[name], classNames)} onClick={onClick}>{name}</span>
+  return <span className={classnames(styles[name], classNames, styles.PokemonType)} onClick={onClick}>{name}</span>
 }
 
 export default PokemonType;
