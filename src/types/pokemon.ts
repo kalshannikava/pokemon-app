@@ -3,11 +3,7 @@
   * A list of abilities this Pokémon could potentially have.
 */
 export type PokemonAbility = {
-  ability: {
-    name: string,
-    url: string,
-  },
-  is_hidden: boolean,
+  name: string,
   slot: number,
 };
 
@@ -16,11 +12,7 @@ export type PokemonAbility = {
 */
 export type PokemonStat = {
   base_stat: number,
-  effort: number,
-  stat: {
-      name: string,
-      url: string,
-  }
+  name: string,
 };
 
 /**
@@ -28,10 +20,7 @@ export type PokemonStat = {
 */
 export type PokemonType = {
   slot: number,
-  type: {
-    name: string,
-    url: string,
-  }
+  name: string,
 };
 
 /**
@@ -58,13 +47,7 @@ export type PokemonDetails = {
   name: string,
   height: number,
   weight: number,
-  sprites: {
-    other: {
-      'official-artwork': {
-        front_default: string,
-      }
-    }
-  },
+  sprite: string,
   types: PokemonType[],
   species: PokemonSpecies,
   abilities: PokemonAbility[],

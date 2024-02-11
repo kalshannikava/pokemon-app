@@ -3,14 +3,17 @@ import { useState, useEffect } from 'react';
 import { FETCH_POKEMONS_DETAILS_LIMIT, GET_POKEMON } from '../constants';
 import { FETCH_POKEMONS_OFFSET_INIT } from '../constants';
 import { FETCH_POKEMONS_LIMIT_INIT } from '../constants';
-import type { Pokemon, PokemonDetails, PokemonPartial } from '../types/pokemon';
-import { chunkArray } from '../utils/helpers';
+import type { Pokemon, PokemonPartial } from '../types/pokemon';
+import { chunkArray, convertPokemonDetailsFromServerToPokemonDetailsForClient } from '../utils/helpers';
+import { PokemonDetailsResponse } from '../types/shared';
+import useCache from './useCache';
 
 const useFetchPokemons = (): 
 { pokemons: Pokemon[], count: number, isLoading: boolean, fetchPokemons: Function } => {
   const [pokemons, setPokemons] = useState<Pokemon[]>([]);
   const [count, setCount] = useState<number>(0);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const { setCached, getCached } = useCache();
 
   const fetchPokemonsNames = async (url?: string): Promise<PokemonPartial[]> => {
     const queryParams = new URLSearchParams({
@@ -35,7 +38,7 @@ const useFetchPokemons = ():
     return batchRes;
   }
 
-  const fetchPokemonsNamesDetails = async (pokemonsList: PokemonPartial[]): Promise<PokemonDetails[]> => {
+  const fetchPokemonsNamesDetails = async (pokemonsList: PokemonPartial[]): Promise<PokemonDetailsResponse[]> => {
     try {
       const requestsUrls: string[] = pokemonsList.map((pokemon) => pokemon.url);
       const batches: string[][] = chunkArray(requestsUrls, FETCH_POKEMONS_DETAILS_LIMIT);
@@ -57,25 +60,34 @@ const useFetchPokemons = ():
     }
   };
 
-  const normalizeData = (pokemonsList: PokemonPartial[], pokemonsDetails: PokemonDetails[]): Pokemon[] => {
+  const normalizeData = (pokemonsList: PokemonPartial[], pokemonsDetails: PokemonDetailsResponse[]): Pokemon[] => {
     if (!pokemonsList.length || !pokemonsDetails.length) return [];
     return pokemonsList.map((pokemon: PokemonPartial) => {
-      const details: PokemonDetails = pokemonsDetails.find(
+      const details: PokemonDetailsResponse = pokemonsDetails.find(
         (detail) => detail.name === pokemon.name
       )!;
       return {
         ...pokemon,
-        ...details,
+        ...convertPokemonDetailsFromServerToPokemonDetailsForClient(details),
       };
     });
   }
 
   const fetchPokemons = async (url?: string) => {
+    const cachedPokemons: Pokemon[] | null = getCached('pokemons');
+    if(cachedPokemons) {
+      setIsLoading(false);
+      setPokemons(cachedPokemons);
+      return;
+    }
+
     const pokemonsList: PokemonPartial[] = await fetchPokemonsNames(url);
-    const pokemonsDetails: PokemonDetails[] = await fetchPokemonsNamesDetails(pokemonsList);
+    const pokemonsDetails: PokemonDetailsResponse[] = await fetchPokemonsNamesDetails(pokemonsList);
 
     setIsLoading(false);
-    setPokemons([...pokemons, ...normalizeData(pokemonsList, pokemonsDetails)]);
+    const newPokemons = [...pokemons, ...normalizeData(pokemonsList, pokemonsDetails)];
+    setPokemons(newPokemons);
+    setCached('pokemons', newPokemons, 86400000);
   };
   useEffect(() => {
     fetchPokemons();
