@@ -4,11 +4,11 @@ import useFetchPokemons from './hooks/useFetchPokemons';
 import PokemonList from './components/PokemonsList/PokemonsList';
 
 function App() {
-  const pokemons = useFetchPokemons();
+  const { pokemons, additionalData, fetchPokemons } = useFetchPokemons();
 
   return (
     <div data-testid='app'>
-      <PokemonList pokemons={pokemons} />
+      <PokemonList pokemons={pokemons} additionalData={additionalData} fetchPokemons={fetchPokemons} />
     </div>
   );
 }
